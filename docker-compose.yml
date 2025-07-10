@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  sql-playground-app:
+    container_name: sql-playground-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/SQL_Playground
+      - /SQL_Playground/node_modules
+    working_dir: /SQL_Playground
+    command: npm run dev
