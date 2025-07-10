@@ -5,7 +5,7 @@ export const runtime = 'nodejs';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } } 
+  { params }: { params: { id: string } } // ✅ ✅ ✅ Correct way
 ) {
   const { id } = params;
 
