@@ -5,9 +5,9 @@ export const runtime = 'nodejs';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } } // ✅ ✅ ✅ Correct way
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = params;
+  const { id } = await  params;
 
   try {
     const { query } = await request.json();
