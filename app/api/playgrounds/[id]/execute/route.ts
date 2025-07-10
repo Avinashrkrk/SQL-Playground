@@ -4,10 +4,10 @@ import { DatabaseManager } from '@/lib/db';
 export const runtime = 'nodejs';
 
 export async function POST(
-  request: Request, 
-  context: { params: { id: string } }
+  request: Request,
+  { params }: { params: { id: string } } 
 ) {
-  const { id } = context.params;
+  const { id } = params;
 
   try {
     const { query } = await request.json();
@@ -27,7 +27,7 @@ export async function POST(
     console.error('POST /api/playgrounds/[id]/execute error:', error);
     return NextResponse.json(
       { error: (error as Error).message || 'Failed to execute query' },
-      { status: 400 }
+      { status: 500 }
     );
   }
 }
