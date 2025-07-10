@@ -1,16 +1,16 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { DatabaseManager } from '@/lib/db';
 
 export const runtime = 'nodejs';
 
 export async function POST(
-  req: NextRequest,
+  request: Request, 
   context: { params: { id: string } }
 ) {
-  const id = context.params.id;
+  const { id } = context.params;
 
   try {
-    const { query } = await req.json();
+    const { query } = await request.json();
 
     if (!query || query.trim() === '') {
       return NextResponse.json({ error: 'Query is required' }, { status: 400 });
@@ -24,8 +24,10 @@ export async function POST(
     const result = await DatabaseManager.executeQuery(id, query.trim());
     return NextResponse.json(result);
   } catch (error) {
-    return NextResponse.json({
-      error: (error as Error).message || 'Failed to execute query'
-    }, { status: 400 });
+    console.error('POST /api/playgrounds/[id]/execute error:', error);
+    return NextResponse.json(
+      { error: (error as Error).message || 'Failed to execute query' },
+      { status: 400 }
+    );
   }
 }
