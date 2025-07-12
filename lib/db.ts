@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 
 // Initialize database
-const dbPath = path.join('./app/db/playgrounds.db');
+const dbPath = path.join(process.cwd(), 'app/db/playgrounds.db');
 const db = new Database(dbPath);
 
 // Create tables
